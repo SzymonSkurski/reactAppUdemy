@@ -1,0 +1,20 @@
+FROM node:16-alpine
+#lts-alpine lts - latest
+ENV NODE_ENV=production
+WORKDIR '/app'
+#COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+COPY package.json .
+#RUN npm install --production --silent && mv node_modules ../
+RUN npm install
+COPY . .
+#EXPOSE 3000
+#RUN chown -R node /usr/src/app
+#USER node
+CMD ["npm", "run", "start"]
+#docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <container id> //bind local volume reference to container
+#docker build -f Dockerfile.dev -t szymon:frontend .
+#docker run -it -p 3000:3000 -v /app/node_modules -v /home/szymon/frontend:/app szymon:frontend
+#docker-compose up
+#docker run -it <container id> npm run test //run tests locally from App.test.js, build container first docker build <dockerfile> .
+#docker exec -it <container id> npm run test//execute command inside runing container
+#docker attach <container id> //attach conatainer stdin/stdout/stderr into current terminal
